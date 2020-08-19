@@ -1,21 +1,22 @@
 import json
-import gpiozero as gpio
-import sys
+from gpiozero import (Button, LED)
 from time import sleep
+from Player import Player
+
 
 class Game:
-    
-    def __init__(self, p1, p2):
-        self.player1 = p1
-        self.player2 = p2
+
+    def __init__(self, p1: Player, p2: Player):
+        self.player1: Player = p1
+        self.player2: Player = p2
         self.gameSpeed = 1
         self.pointThreshold = 10
         self.p1BtnNum = 0
-        self.p2BtnNum = 0 
+        self.p2BtnNum = 0
         self.ledArrNums = []
         self.ledArr = []
         self.turn = 'p1'
-        self.run = True 
+        self.run = True
 
     def readConfig(self):
         with open('config/gpio-config.json', 'r') as file:
@@ -23,31 +24,30 @@ class Game:
             self.p1BtnNum = data['p1Btn']
             self.p2BtnNum = data['p2Btn']
             self.ledArrNums = data['ledArray']
-    
+
     def initializeGPIO(self):
         for i in self.ledArrNums:
-            tempLed = gpio.LED(i)
+            tempLed = LED(i)
             self.ledArr.append(tempLed)
-        self.p1Btn = gpio.Button(self.p1BtnNum)
-        self.p2Btn = gpio.Button(self.p2BtnNum)
+        self.p1Btn = Button(self.p1BtnNum)
+        self.p2Btn = Button(self.p2BtnNum)
         self.p1Btn.when_pressed = self.btnCheck1
         self.p2Btn.when_pressed = self.btnCheck2
 
-
     def btnCheck1(self):
         if (self.currentLed.pin == self.ledArr[len(self.ledArr)-1].pin and self.currentLed.is_active and self.turn == 'p1'):
-            self.hasWon()
+            self.player2.checkScore()
             self.turn = 'p2'
             self.player1.playerScored()
             self.player1.decrementSpeed()
             print(self.player1.getName(), 'Score:', self.player1.getScore())
         elif (self.turn == 'p1'):
             self.turn = 'p2'
-            print(self.player1.getName(), 'missed!') 
+            print(self.player1.getName(), 'missed!')
 
     def btnCheck2(self):
         if (self.currentLed.pin == self.ledArr[0].pin and self.currentLed.is_active and self.turn == 'p2'):
-            self.hasWon()
+            self.player2.checkScore()
             self.turn = 'p1'
             self.player2.playerScored()
             self.player2.decrementSpeed()
@@ -56,12 +56,11 @@ class Game:
             self.turn = 'p1'
             print(self.player2.getName(), 'missed!')
 
-
     def startGame(self):
         self.readConfig()
         self.initializeGPIO()
         self.loopLeds()
-    
+
     def hasWon(self):
         if (self.player1.getScore() >= 10):
             print(self.player1.getName(), 'has won!')
@@ -80,12 +79,10 @@ class Game:
                 self.currentLed = i
                 sleep(self.player1.getSpeed())
                 i.off()
-            
+
             revArr = self.ledArr[::-1]
             for i in revArr[1:len(revArr)]:
                 i.on()
                 self.currentLed = i
                 sleep(self.player2.getSpeed())
                 i.off()
-
- 
