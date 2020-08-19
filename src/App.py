@@ -8,6 +8,7 @@ class App:
         self.p2Name = ""
         self.promptPlayerNames()
         self.createPlayers()
+        self.createGame()
 
     def promptPlayerNames(self):
         self.p1Name = str(input("Enter Player 1 Name: "))
@@ -22,3 +23,4 @@ class App:
         self.game = Game(self.p1, self.p2)
 
 app = App()
+app.game.startGame()

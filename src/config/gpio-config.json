@@ -1,5 +1,7 @@
 {
-  "ledArray": [29, 31, 33, 35, 32, 37],
-  "p1Btn": 16,
-  "p2Btn": 18
+  "ledArray": [5, 6, 13, 19, 12, 26],
+  "p1Btn": 23,
+  "p2Btn": 24,
+  "p1Wire": "white wire",
+  "p2Wire": "black wire"
 }
