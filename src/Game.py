@@ -42,12 +42,12 @@ class Game:
             self.player1.playerScored()
             self.player1.decrementSpeed()
             print(self.player1.getName(), 'Score:', self.player1.getScore())
-            self.player2.checkScore()
+            self.player1.checkScore()
             # switch turns
             self.player1.setIsTurn(False)
             self.player2.setIsTurn(True)
 
-        elif (self.player1.getIsTurn):
+        elif (self.player1.getIsTurn()):
             print(self.player1.getName(), 'missed!')
             # switch turns
             self.player1.setIsTurn(False)
