@@ -4,6 +4,7 @@ class Player:
     def __init__(self, name, score):
         self.__name = name
         self.__score = score
+        self.__speed = 1
 
     def getName(self):
         return self.__name
@@ -19,4 +20,9 @@ class Player:
     
     def playerScored(self):
         self.__score += 1
-    
+   
+    def getSpeed(self):
+        return self.__speed
+   
+    def decrementSpeed(self):
+        self.__speed *= .85
