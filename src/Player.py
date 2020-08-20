@@ -30,7 +30,7 @@ class Player:
         return self.__speed
 
     def decrementSpeed(self: object) -> None:
-        self.__speed *= .80
+        self.__speed *= .77
 
     def getIsTurn(self: object) -> bool:
         return self.__isTurn
