@@ -8,6 +8,8 @@ Author: Collin Kleest
 
 Contact: [collinkleest@gmail.com](mailto:collinkleest@gmail.com)
 
+[Demo Video](https://www.youtube.com/watch?v=XbRmYca14Fc)
+
 ## Materials
 
 - Raspberry Pi
@@ -59,5 +61,10 @@ Change directory into `src/` then run App.
 cd src/
 python3 App.py
 ```
+
+## Wiring Example
+
+<img src="./assets/board.jpg"></img>
+<img src="./assets/board-pi.jpg"></img>
 
 [LICENSE](./LICENSE)
